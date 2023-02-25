@@ -2,8 +2,8 @@
 
 ## Control questions:
 
- ### What is the difference between executing JavaScript in a browser and in a Node.js environment?
- 1.  JavaScript is a simple programming language that runs in any browser JavaScript Engine. Whereas Node JS is an interpreter or running environment for a JavaScript programming language that holds many excesses, it requires libraries that can easily be accessed from JavaScript programming for better use.
+### What is the difference between executing JavaScript in a browser and in a Node.js environment?
+ 1. JavaScript is a simple programming language that runs in any browser JavaScript Engine. Whereas Node JS is an interpreter or running environment for a JavaScript programming language that holds many excesses, it requires libraries that can easily be accessed from JavaScript programming for better use.
  2. Node.js has full access to the system like any other source
     application. This means it can read and write directly to or from
     the file system, it can also have unlimited network access, and it
@@ -58,6 +58,28 @@ Syntax:
 `var some-name = require("module-name")`
 
 This require() call import the specified module and cached into the application so that we don’t need to import it again and again.
+
+According to ES6 standards, exports/imports are used, not require.
+
+1. Importing an entire module: 
+
+`import * as name from 'module-name'`
+
+2. Import default export from a module:
+
+`import name from 'module-name'`
+
+3. Importing a single export from a module:
+
+`import { name } from 'module-name'`
+
+4. Importing multiple exports from a module:
+
+`import { nameOne , nameTwo } from 'module-name'`
+
+5. Importing a module for side effects only
+
+`import './module-name'`
 
  ### How Node.js and Google Chrome are connected?
  Node.js is an open-source runtime environment that allows JavaScript code to be executed outside the browser. It is based on the V8 JavaScript engine of Google Chrome.
