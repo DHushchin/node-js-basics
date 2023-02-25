@@ -187,3 +187,5 @@ $RECYCLE.BIN/
 
 # Docker
 .docker
+
+.DS_Store
