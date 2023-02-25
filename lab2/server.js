@@ -6,7 +6,6 @@ async function getHtml(url) {
     try {
         const response = await axios.get(url);
         const html = response.data;
-        // console.log(html);
         return html;
     } catch (error) {
         console.error(error);
@@ -25,11 +24,22 @@ async function getArticles(html) {
     return articles;
 }
 
+async function saveData(articles) {
+    const data = JSON.stringify(articles, null, 2); // lenght = 3288
+
+    for (let i = 0; i < 5; i++) {
+        const filename = `data/article_${i}.json`;
+        const article = articles[i];
+        // write to file
+        fs.writeFileSync(filename, JSON.stringify(article, null, 2));
+    }
+}
+
 async function main() {
     const url = "https://www.nytimes.com/section/business";
     const html = await getHtml(url);
     const articles = await getArticles(html);
-    console.log(articles);
+    await saveData(articles);
 }
 
 main();
