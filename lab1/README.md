@@ -1,8 +1,6 @@
-# Lab 1
+# Control questions:
 
-## Control questions:
-
-### What is the difference between executing JavaScript in a browser and in a Node.js environment?
+## What is the difference between executing JavaScript in a browser and in a Node.js environment?
  1. JavaScript is a simple programming language that runs in any browser JavaScript Engine. Whereas Node JS is an interpreter or running environment for a JavaScript programming language that holds many excesses, it requires libraries that can easily be accessed from JavaScript programming for better use.
  2. Node.js has full access to the system like any other source
     application. This means it can read and write directly to or from
@@ -10,7 +8,7 @@
     can execute software.
 
 
- ### What are JavaScript data types?
+## What are JavaScript data types?
 Primary types:
 1. String  
 2. Number  
@@ -27,7 +25,7 @@ Object types:
  3. A date
  
  
- ### How does closure work in JavaScript?
+## How does closure work in JavaScript?
 A closure gives you access to an outer function's scope from an inner function. In JavaScript, closures are created every time a function is created, at function creation time.
 
        function init() {
@@ -43,7 +41,7 @@ A closure gives you access to an outer function's scope from an inner function. 
 
 
 
- ### What are main build-in modules in Node.js?
+## What are main build-in modules in Node.js?
  - fs: to handle the file system
  - http: to make Node.js act as an HTTP server
  - net: to create servers and clients
@@ -51,7 +49,7 @@ A closure gives you access to an outer function's scope from an inner function. 
  - stream: to handle streaming data
 
 
- ### How to import modules in Node.js?
+## How to import modules in Node.js?
 Node JS Platform has provided a function call **“require()”** to import one module into another.
 
 Syntax: 
@@ -81,11 +79,11 @@ According to ES6 standards, exports/imports are used, not require.
 
 `import './module-name'`
 
- ### How Node.js and Google Chrome are connected?
+## How Node.js and Google Chrome are connected?
  Node.js is an open-source runtime environment that allows JavaScript code to be executed outside the browser. It is based on the V8 JavaScript engine of Google Chrome.
  
  
- ### How to allow variables to be imported from current module?  
+## How to allow variables to be imported from current module?  
  Module exports are the instruction that tells Node.js which bits of code (functions, objects, strings, etc.) to “export” from a given file so other files are allowed to access the exported code.
  
  
