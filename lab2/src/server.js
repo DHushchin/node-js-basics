@@ -1,6 +1,9 @@
 import axios from 'axios';
 import * as fs from 'fs';
 import * as cheerio from 'cheerio';
+import * as http from 'http';
+
+const PORT = 3000;
 
 async function getHtml(url) {
     try {
@@ -40,9 +43,43 @@ async function saveData(articles) {
 
 async function main() {
     const url = 'https://www.nytimes.com/section/business';
+    console.log('new data loaded');
     const html = await getHtml(url);
     const articles = await getArticles(html);
     await saveData(articles);
 }
 
-main();
+function getData() {
+    if (!fs.existsSync('data')) {
+        fs.mkdirSync('data');
+    }
+
+    var articles = [];
+
+    for (let i = 0; i < 5; i++) {
+        const filename = `data/article_${i}.json`;
+        var article = JSON.parse(fs.readFileSync(filename, 'utf8'));
+        articles.push(article);
+    }
+
+    console.log('got new data');
+    return articles;
+}
+
+setInterval(main, 20*1000);
+
+const server = http.createServer((req, res) => {
+    console.log('Server request');
+    res.setHeader('Content-Type', 'text/html');
+    res.write('<head><link rel="stylesheet" href="./styles.css"/></head>')
+    
+    var articles = getData();
+    for (let index = 0; index < articles.length; index++) {
+        res.write(`<p><a href="https://www.nytimes.com${articles[index].link}">${articles[index].title}</a></p>`);
+    }
+    res.end();
+});
+
+server.listen(PORT, 'localhost', (error) => {
+    error ? console.log(error) : console.log(`listening port ${PORT}`);
+});
