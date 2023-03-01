@@ -4,15 +4,16 @@ import Student from '../models/student.model';
 import { NextFunction, Request, Response } from 'express';
 
 class StudentsController {
-    private studens: Student[];
+    private students: Student[] = [];
 
     constructor() {
-        this.studens = [];
+        const student = new Student('John', 'Doe', ' ', ' ', 0, '1');
+        this.students = [student];
     }
 
     public async getStudents(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
-            res.status(HttpCodes.OK).send(this.studens);
+            res.status(HttpCodes.OK).send(this.students);
         } catch (error) {
             next(error);
         }
@@ -21,8 +22,8 @@ class StudentsController {
     public async addStudent(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
             const student: Student = req.body;
-            this.studens.push(student);
-            res.status(HttpCodes.OK).send(this.studens);
+            this.students.push(student);
+            res.status(HttpCodes.OK).send(this.students);
         } catch (error) {
             next(error);
         }
@@ -30,9 +31,9 @@ class StudentsController {
 
     public async deleteStudent(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
-            const student: Student = req.body;
-            this.studens = this.studens.filter((item) => item.email !== student.email);
-            res.status(HttpCodes.OK).send(this.studens);
+            const studentId : string = req.params.id;
+            this.students = this.students.filter((item) => item.id !== studentId);
+            res.status(HttpCodes.OK).send(this.students);
         } catch (error) {
             next(error);
         }
@@ -40,18 +41,20 @@ class StudentsController {
 
     public async changeStudent(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
+            const studentId : string = req.params.id;
             const student: Student = req.body;
-            this.studens = this.studens.map((item) => {
-                if (item.email === student.email) {
-                    return student;
+            this.students = this.students.map((item) => {
+                if (item.id === studentId) {
+                    return {...item, ...student};
                 }
                 return item;
             });
-            res.status(HttpCodes.OK).send(this.studens);
+            res.status(HttpCodes.OK).send(this.students);
         } catch (error) {
             next(error);
         }
     }
 }
+
 
 export default new StudentsController();

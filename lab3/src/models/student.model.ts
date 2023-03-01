@@ -4,7 +4,7 @@ class Student {
     public email: string;
     public phone: string;
     public age: number;
-    public id: number;
+    public id: string;
 
     public constructor(
         name: string,
@@ -12,7 +12,7 @@ class Student {
         email: string,
         phone: string,
         age: number,
-        id: number,
+        id: string,
     ) {
         this.name = name;
         this.surname = surname;

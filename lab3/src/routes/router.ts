@@ -17,15 +17,15 @@ class RouteCreator {
     private createStudentRoutes(): void {
         this.router.get('/students', studentController.getStudents);
         this.router.post('/students', studentController.addStudent);
-        this.router.delete('/students', studentController.deleteStudent);
-        this.router.put('/students', studentController.changeStudent);
+        this.router.delete('/students/:id', studentController.deleteStudent);
+        this.router.put('/students/:id', studentController.changeStudent);
     }
 
     private createGroupRoutes(): void {
         this.router.get('/groups', groupController.getGroups);
         this.router.post('/groups', groupController.addGroup);
-        this.router.delete('/groups', groupController.deleteGroup);
-        this.router.put('/groups', groupController.changeGroup);
+        this.router.delete('/groups/:id', groupController.deleteGroup);
+        this.router.put('/groups/:id', groupController.changeGroup);
     }
 
     private createRoutes(): void {

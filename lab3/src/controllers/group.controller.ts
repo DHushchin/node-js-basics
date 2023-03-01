@@ -4,11 +4,7 @@ import Group from '../models/group.model';
 import { NextFunction, Request, Response } from 'express';
 
 class GroupsController {
-    private groups: Group[];
-
-    constructor() {
-        this.groups = [];
-    }
+    private groups: Group[] = [];
 
     public async getGroups(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
@@ -30,8 +26,8 @@ class GroupsController {
 
     public async deleteGroup(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
-            const group: Group = req.body;
-            this.groups = this.groups.filter((item) => item.name !== group.name);
+            const groupId : string = req.params.id;
+            this.groups = this.groups.filter((item) => item.id !== groupId);
             res.status(HttpCodes.OK).send(this.groups);
         } catch (error) {
             next(error);
@@ -41,9 +37,10 @@ class GroupsController {
     public async changeGroup(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
             const group: Group = req.body;
+            const groupId : string = req.params.id;
             this.groups = this.groups.map((item) => {
-                if (item.name === group.name) {
-                    return group;
+                if (item.id === group.id) {
+                    return {...item, ...group};
                 }
                 return item;
             });
