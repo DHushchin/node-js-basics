@@ -1,8 +1,5 @@
-// import rateController from '../components/rate/controllers/rate.controller';
-// import subscriptionController from '../components/subscription/controllers/subscription.controller';
-// import notificationController from '../components/subscription/controllers/notification.controller';
-// import emailValidator from '../middlewares/validation.middleware';
-
+import studentController from '../controllers/student.controller';
+import groupController from '../controllers/group.controller';
 import { Router } from 'express';
 
 class RouteCreator {
@@ -17,10 +14,23 @@ class RouteCreator {
         return this.router;
     }
 
+    private createStudentRoutes(): void {
+        this.router.get('/students', studentController.getStudents);
+        this.router.post('/students', studentController.addStudent);
+        this.router.delete('/students', studentController.deleteStudent);
+        this.router.put('/students', studentController.changeStudent);
+    }
+
+    private createGroupRoutes(): void {
+        this.router.get('/groups', groupController.getGroups);
+        this.router.post('/groups', groupController.addGroup);
+        this.router.delete('/groups', groupController.deleteGroup);
+        this.router.put('/groups', groupController.changeGroup);
+    }
+
     private createRoutes(): void {
-        // this.router.get('/rate', rateController.getRate);
-        // this.router.post('/subscribe', emailValidator, subscriptionController.subscribe);
-        // this.router.post('/sendEmails', notificationController.sendEmail);
+        this.createStudentRoutes();
+        this.createGroupRoutes();
     }
 }
 
