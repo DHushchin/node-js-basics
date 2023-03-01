@@ -4,11 +4,14 @@ import Student from '../models/student.model';
 import { NextFunction, Request, Response } from 'express';
 
 class StudentsController {
-    private students: Student[] = [];
+    private students: Student[];
 
     constructor() {
-        const student = new Student('John', 'Doe', ' ', ' ', 0, '1');
-        this.students = [student];
+        this.students = [];
+        this.getStudents = this.getStudents.bind(this);
+        this.addStudent = this.addStudent.bind(this);
+        this.deleteStudent = this.deleteStudent.bind(this);
+        this.changeStudent = this.changeStudent.bind(this);
     }
 
     public async getStudents(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -31,7 +34,7 @@ class StudentsController {
 
     public async deleteStudent(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
-            const studentId : string = req.params.id;
+            const studentId: string = req.params.id;
             this.students = this.students.filter((item) => item.id !== studentId);
             res.status(HttpCodes.OK).send(this.students);
         } catch (error) {
@@ -41,11 +44,11 @@ class StudentsController {
 
     public async changeStudent(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
-            const studentId : string = req.params.id;
+            const studentId: string = req.params.id;
             const student: Student = req.body;
             this.students = this.students.map((item) => {
                 if (item.id === studentId) {
-                    return {...item, ...student};
+                    return { ...item, ...student };
                 }
                 return item;
             });
@@ -55,6 +58,5 @@ class StudentsController {
         }
     }
 }
-
 
 export default new StudentsController();

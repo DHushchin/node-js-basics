@@ -1,15 +1,14 @@
-import path from 'path';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
 class Config {
-    private PORT: number | undefined;
+    private PORT: number;
     private HOST: string;
 
     constructor() {
-        this.PORT = process.env.PORT ? Number(process.env.PORT) : undefined;
-        this.HOST = 'localhost';
+        this.PORT = process.env.PORT ? Number(process.env.PORT) : 3000;
+        this.HOST = process.env.HOST || 'localhost';
     }
 
     public get<T>(key: string): T {
