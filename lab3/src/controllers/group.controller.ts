@@ -11,6 +11,7 @@ class GroupsController {
         this.getGroups = this.getGroups.bind(this);
         this.addGroup = this.addGroup.bind(this);
         this.deleteGroup = this.deleteGroup.bind(this);
+        this.changeGroup = this.changeGroup.bind(this);
     }
 
     public async getGroups(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -46,7 +47,7 @@ class GroupsController {
             const group: Group = req.body;
             const groupId: string = req.params.id;
             this.groups = this.groups.map((item) => {
-                if (item.id === group.id) {
+                if (item.id === groupId) {
                     return { ...item, ...group };
                 }
                 return item;
