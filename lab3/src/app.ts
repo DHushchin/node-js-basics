@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import config from './config';
 import router from './routes/router';
 import errorMiddleware from './middlewares/error.middleware';
+import 'ejs'
 // import logger from './components/logger/services/logger';
 
 class App {
@@ -11,6 +12,7 @@ class App {
 
     public constructor() {
         this.app = express();
+        this.app.set('view engine', 'ejs');
         this.initializeMiddlewares();
         this.initializeErrorHandling();
         this.mountRoutes();
@@ -32,7 +34,7 @@ class App {
     }
 
     private mountRoutes(): void {
-        this.app.use('/api', router);
+        this.app.use('/', router);
     }
 }
 

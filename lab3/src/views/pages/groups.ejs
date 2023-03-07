@@ -20,7 +20,14 @@
         <% groups.forEach(function(group) { %>
             <tr>
                 <td><%= group.name %></td>
-                <td>Edit</td>
+                <td>
+                    <form method="post" action="/groups/<%= group._id %>?_method=PUT">
+                        <label for="name">Group Name:</label>
+                        <input type="text" id="name" name="name" value="<%= group.name %>" required>
+                        <br>
+                        <input type="submit" value="Update Group">
+                    </form>
+                </td>
                 <td>
                     <form method="post" action="/groups/<%= group.id %>?_method=DELETE">
                         <input type="submit" value="Delete Student">
@@ -32,18 +39,12 @@
 
     <h1>Create New Group</h1>
     <form method="post" action="/groups">
+        <label for="id">Group Id:</label>
+        <input type="number" id="id" name="id" required>
         <label for="name">Group Name:</label>
         <input type="text" id="name" name="name" required>
         <br>
         <input type="submit" value="Create Group">
-    </form>
-
-    <h1>Edit Group</h1>
-    <form method="post" action="/groups/<%= group._id %>?_method=PUT">
-        <label for="name">Group Name:</label>
-        <input type="text" id="name" name="name" value="<%= group.name %>" required>
-        <br>
-        <input type="submit" value="Update Group">
     </form>
 </body>
 </html>

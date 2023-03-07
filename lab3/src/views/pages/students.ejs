@@ -17,12 +17,7 @@
         <input type="text" id="name" name="name">
         <br>
         <label for="group">Search by Group:</label>
-        <select id="group" name="group">
-            <option value="">All Groups</option>
-            <% groups.forEach(function(group) { %>
-                <option value="<%= group._id %>"><%= group.name %></option>
-            <% }) %>
-        </select>
+
         <br>
         <input type="submit" value="Search">
     </form>
@@ -33,7 +28,7 @@
             <th>Edit</th>
             <th>Delete</th>
         </tr>
-        <% students.forEach(function(student) { %>
+        <% students?.forEach(function(student) { %>
             <tr>
                 <td><%= student.name %></td>
                 <td><%= student.group.name %></td>
@@ -49,6 +44,8 @@
 
     <h1>Create New Student</h1>
     <form method="post" action="/students">
+        <label for="id">Student Id:</label>
+        <input type="number" id="id" name="id" required>
         <label for="name">Student Name:</label>
         <input type="text" id="name" name="name" required>
         <label for="surname">Student Surname:</label>
@@ -61,36 +58,26 @@
         <input type="number" id="age" name="age" required>
         <br>
         <label for="group">Group:</label>
-        <select id="group" name="group" required>
-            <% groups.forEach(function(group) { %>
-                <option value="<%= group.id %>"><%= group.name %></option>
-            <% }) %>
-        </select>
         <br>
         <input type="submit" value="Create Student">
     </form>
 
-    <h1>Edit Student</h1>
-    <form method="post" action="/students/<%= student._id %>?_method=PUT">
+    <!-- <h1>Edit Student</h1>
+    <form method="post" action="/students/< %= student.id %>?_method=PUT">
         <label for="name">Student Name:</label>
-        <input type="text" id="name" name="name" value="<%= student.name %>" required>
+        <input type="text" id="name" name="name" value="< %= student.name %>" required>
         <label for="surname">Student Surname:</label>
-        <input type="text" id="surname" name="surname" value="<%= student.surname %>" required>
+        <input type="text" id="surname" name="surname" value="< %= student.surname %>" required>
         <label for="email">Student Email:</label>
-        <input type="email" id="email" name="email" value="<%= student.email %>" required>
+        <input type="email" id="email" name="email" value="< %= student.email %>" required>
         <label for="phone">Student Phone:</label>
-        <input type="text" id="phone" name="phone" value="<%= student.phone %>" required>
+        <input type="text" id="phone" name="phone" value="< %= student.phone %>" required>
         <label for="age">Student Age:</label>
-        <input type="number" id="age" name="age" value="<%= student.age %>" required>
+        <input type="number" id="age" name="age" value="< %= student.age %>" required>
         <br>
         <label for="group">Group:</label>
-        <select id="group" name="group" required>
-            <% groups.forEach(function(group) { %>
-                <option value="<%= group._id %>" <% if (group._id == student.group._id) { %>selected<% } %>><%= group.name %></option>
-            <% }) %>
-        </select>
         <br>
         <input type="submit" value="Update Student">
-    </form>
+    </form> -->
 </body>
 </html>
