@@ -1,6 +1,7 @@
 import studentController from '../controllers/student.controller';
 import groupController from '../controllers/group.controller';
-import { Router } from 'express';
+import { NextFunction, Request, Response, Router } from 'express';
+import HttpCodes from '../constants/http-codes.enum';
 
 class RouteCreator {
     private router: Router;
@@ -15,30 +16,63 @@ class RouteCreator {
     }
 
     private createStudentRoutes(): void {
-        this.router.get('/students', async function(req, res, next) {
-            let students = await studentController.getStudents(req, res, next)
-            console.log(students)
-            res.render('../src/views/pages/students', {
+        this.router.get('/students', async function(req: Request, res: Response, next: NextFunction) {
+            res.status(HttpCodes.OK).render('../src/views/pages/students', {
                 message: "Hello",
-                students: students
+                students: await studentController.getStudents(req, res, next)
             });
         });
-        this.router.post('/students', studentController.addStudent);
-        this.router.delete('/students/:id', studentController.deleteStudent);
-        this.router.put('/students/:id', studentController.changeStudent);
+
+        this.router.post('/students', async function(req: Request, res: Response, next: NextFunction) {
+            res.status(HttpCodes.OK).render('../src/views/pages/students', {
+                message: "Hello",
+                students: await studentController.addStudent(req, res, next)
+            });
+        });
+
+        this.router.delete('/students/:id',async function(req: Request, res: Response, next: NextFunction) {
+            res.status(HttpCodes.OK).render('../src/views/pages/students', {
+                message: "Hello",
+                students: await studentController.changeStudent(req, res, next)
+            });
+        });
+
+        this.router.put('/students/:id', async function(req: Request, res: Response, next: NextFunction) {
+            res.status(HttpCodes.OK).render('../src/views/pages/students', {
+                message: "Hello",
+                students: await studentController.deleteStudent(req, res, next)
+            });
+        });
     }
 
     private createGroupRoutes(): void {
-        this.router.get('/groups', async function(req, res, next) {
-            const groups = await studentController.getStudents(req, res, next)
-            // res.render('../src/views/pages/groups',{
-            //     message: "Hello",
-            //     groups: groups
-            // });
+        this.router.get('/groups', async function(req: Request, res: Response, next: NextFunction) {
+            res.status(HttpCodes.OK).render('../src/views/pages/groups', {
+                message: "Hello",
+                group: await groupController.getGroups(req, res, next)
+            });
         });
-        this.router.post('/groups', groupController.addGroup);
-        this.router.delete('/groups/:id', groupController.deleteGroup);
-        this.router.put('/groups/:id', groupController.changeGroup);
+
+        this.router.post('/groups', async function(req: Request, res: Response, next: NextFunction) {
+            res.status(HttpCodes.OK).render('../src/views/pages/groups', {
+                message: "Hello",
+                students: await groupController.addGroup(req, res, next)
+            });
+        });
+
+        this.router.delete('/groups/:id', async function(req: Request, res: Response, next: NextFunction) {
+            res.status(HttpCodes.OK).render('../src/views/pages/groups', {
+                message: "Hello",
+                students: await groupController.changeGroup(req, res, next)
+            });
+        });
+
+        this.router.put('/groups/:id', async function(req: Request, res: Response, next: NextFunction) {
+            res.status(HttpCodes.OK).render('../src/views/pages/groups', {
+                message: "Hello",
+                students: await groupController.deleteGroup(req, res, next)
+            });
+        });
     }
 
     private createRoutes(): void {

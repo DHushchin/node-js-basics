@@ -1,11 +1,11 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import 'ejs';
 
 import config from './config';
 import router from './routes/router';
 import errorMiddleware from './middlewares/error.middleware';
-import 'ejs'
-// import logger from './components/logger/services/logger';
+
 
 class App {
     private app: express.Application;

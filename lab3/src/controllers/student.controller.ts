@@ -14,35 +14,35 @@ class StudentsController {
         this.changeStudent = this.changeStudent.bind(this);
     }
 
-    public async getStudents(req: Request, res: Response, next: NextFunction): Promise<void> {
+    public async getStudents(req: Request, res: Response, next: NextFunction): Promise<Student[] | undefined> {
         try {
-            res.status(HttpCodes.OK).send(this.students);
+            return this.students;
         } catch (error) {
             next(error);
         }
     }
 
-    public async addStudent(req: Request, res: Response, next: NextFunction): Promise<void> {
+    public async addStudent(req: Request, res: Response, next: NextFunction): Promise<Student[] | undefined> {
         try {
             const student: Student = req.body;
             this.students.push(student);
-            res.status(HttpCodes.OK).send(this.students);
+            return this.students;
         } catch (error) {
             next(error);
         }
     }
 
-    public async deleteStudent(req: Request, res: Response, next: NextFunction): Promise<void> {
+    public async deleteStudent(req: Request, res: Response, next: NextFunction): Promise<Student[] | undefined> {
         try {
             const studentId: string = req.params.id;
             this.students = this.students.filter((item) => item.id !== studentId);
-            res.status(HttpCodes.OK).send(this.students);
+            return this.students;
         } catch (error) {
             next(error);
         }
     }
 
-    public async changeStudent(req: Request, res: Response, next: NextFunction): Promise<void> {
+    public async changeStudent(req: Request, res: Response, next: NextFunction): Promise<Student[] | undefined> {
         try {
             const studentId: string = req.params.id;
             const student: Student = req.body;
@@ -52,7 +52,7 @@ class StudentsController {
                 }
                 return item;
             });
-            res.status(HttpCodes.OK).send(this.students);
+            return this.students;
         } catch (error) {
             next(error);
         }

@@ -14,35 +14,35 @@ class GroupsController {
         this.changeGroup = this.changeGroup.bind(this);
     }
 
-    public async getGroups(req: Request, res: Response, next: NextFunction): Promise<void> {
+    public async getGroups(req: Request, res: Response, next: NextFunction): Promise<Group[] | undefined> {
         try {
-            res.status(HttpCodes.OK).send(this.groups);
+            return this.groups;
         } catch (error) {
             next(error);
         }
     }
 
-    public async addGroup(req: Request, res: Response, next: NextFunction): Promise<void> {
+    public async addGroup(req: Request, res: Response, next: NextFunction): Promise<Group[] | undefined> {
         try {
             const group: Group = req.body;
             this.groups.push(group);
-            res.status(HttpCodes.OK).send(this.groups);
+            return this.groups;
         } catch (error) {
             next(error);
         }
     }
 
-    public async deleteGroup(req: Request, res: Response, next: NextFunction): Promise<void> {
+    public async deleteGroup(req: Request, res: Response, next: NextFunction): Promise<Group[] | undefined> {
         try {
             const groupId: string = req.params.id;
             this.groups = this.groups.filter((item) => item.id !== groupId);
-            res.status(HttpCodes.OK).send(this.groups);
+            return this.groups;
         } catch (error) {
             next(error);
         }
     }
 
-    public async changeGroup(req: Request, res: Response, next: NextFunction): Promise<void> {
+    public async changeGroup(req: Request, res: Response, next: NextFunction): Promise<Group[] | undefined> {
         try {
             const group: Group = req.body;
             const groupId: string = req.params.id;
@@ -52,7 +52,7 @@ class GroupsController {
                 }
                 return item;
             });
-            res.status(HttpCodes.OK).send(this.groups);
+            return this.groups;
         } catch (error) {
             next(error);
         }
