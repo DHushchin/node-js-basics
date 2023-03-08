@@ -18,29 +18,29 @@ class RouteCreator {
     private createStudentRoutes(): void {
         this.router.get('/students', async function(req: Request, res: Response, next: NextFunction) {
             res.status(HttpCodes.OK).render('../src/views/pages/students', {
-                message: "Hello",
+                message: "",
                 students: await studentController.getStudents(req, res, next)
             });
         });
 
         this.router.post('/students', async function(req: Request, res: Response, next: NextFunction) {
             res.status(HttpCodes.OK).render('../src/views/pages/students', {
-                message: "Hello",
+                message: "",
                 students: await studentController.addStudent(req, res, next)
             });
         });
 
         this.router.delete('/students/:id',async function(req: Request, res: Response, next: NextFunction) {
             res.status(HttpCodes.OK).render('../src/views/pages/students', {
-                message: "Hello",
-                students: await studentController.changeStudent(req, res, next)
+                message: "",
+                students: await studentController.deleteStudent(req, res, next)
             });
         });
 
         this.router.put('/students/:id', async function(req: Request, res: Response, next: NextFunction) {
             res.status(HttpCodes.OK).render('../src/views/pages/students', {
-                message: "Hello",
-                students: await studentController.deleteStudent(req, res, next)
+                message: "",
+                students: await studentController.changeStudent(req, res, next)
             });
         });
     }
@@ -48,29 +48,31 @@ class RouteCreator {
     private createGroupRoutes(): void {
         this.router.get('/groups', async function(req: Request, res: Response, next: NextFunction) {
             res.status(HttpCodes.OK).render('../src/views/pages/groups', {
-                message: "Hello",
-                group: await groupController.getGroups(req, res, next)
+                message: "",
+                groups: await groupController.getGroups(req, res, next)
             });
         });
 
         this.router.post('/groups', async function(req: Request, res: Response, next: NextFunction) {
+            console.log("add func");
             res.status(HttpCodes.OK).render('../src/views/pages/groups', {
-                message: "Hello",
-                students: await groupController.addGroup(req, res, next)
+                message: "",
+                groups: await groupController.addGroup(req, res, next)
             });
         });
 
         this.router.delete('/groups/:id', async function(req: Request, res: Response, next: NextFunction) {
+            console.log("delete func")
             res.status(HttpCodes.OK).render('../src/views/pages/groups', {
-                message: "Hello",
-                students: await groupController.changeGroup(req, res, next)
+                message: "",
+                groups: await groupController.deleteGroup(req, res, next)
             });
         });
 
         this.router.put('/groups/:id', async function(req: Request, res: Response, next: NextFunction) {
             res.status(HttpCodes.OK).render('../src/views/pages/groups', {
-                message: "Hello",
-                students: await groupController.deleteGroup(req, res, next)
+                message: "",
+                groups: await groupController.changeGroup(req, res, next)
             });
         });
     }

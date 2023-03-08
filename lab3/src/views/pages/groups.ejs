@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Groups</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css" />
 </head>
 <body>
     <% if (message) { %>
@@ -21,16 +22,15 @@
             <tr>
                 <td><%= group.name %></td>
                 <td>
-                    <form method="post" action="/groups/<%= group._id %>?_method=PUT">
-                        <label for="name">Group Name:</label>
+                    <form method="post" action="/groups/<% group._id %>?_method=PUT">
                         <input type="text" id="name" name="name" value="<%= group.name %>" required>
                         <br>
-                        <input type="submit" value="Update Group">
+                        <input class="submit-button" type="submit" value="Update Group Name">
                     </form>
                 </td>
                 <td>
                     <form method="post" action="/groups/<%= group.id %>?_method=DELETE">
-                        <input type="submit" value="Delete Student">
+                        <input lass="submit-button"  type="submit" value="Delete Group">
                     </form>
                 </td>
             </tr>
@@ -44,7 +44,7 @@
         <label for="name">Group Name:</label>
         <input type="text" id="name" name="name" required>
         <br>
-        <input type="submit" value="Create Group">
+        <input class="submit-button" type="submit" value="Create Group">
     </form>
 </body>
 </html>

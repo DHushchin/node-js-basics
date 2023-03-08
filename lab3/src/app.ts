@@ -12,10 +12,14 @@ class App {
 
     public constructor() {
         this.app = express();
+        var path = require('path')
+        const methodOverride = require('method-override');
         this.app.set('view engine', 'ejs');
         this.initializeMiddlewares();
         this.initializeErrorHandling();
         this.mountRoutes();
+        this.app.use(methodOverride('_method'));
+        this.app.use(express.static(path.join(__dirname, '/public')));
     }
 
     private initializeMiddlewares() {

@@ -33,6 +33,7 @@ class GroupsController {
     }
 
     public async deleteGroup(req: Request, res: Response, next: NextFunction): Promise<Group[] | undefined> {
+        console.log("delete");
         try {
             const groupId: string = req.params.id;
             this.groups = this.groups.filter((item) => item.id !== groupId);

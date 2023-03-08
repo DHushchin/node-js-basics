@@ -34,10 +34,13 @@ class StudentsController {
 
     public async deleteStudent(req: Request, res: Response, next: NextFunction): Promise<Student[] | undefined> {
         try {
-            const studentId: string = req.params.id;
+            console.log("start delete func");
+            const studentId: string = req.params['id'];
+            console.log(studentId);
             this.students = this.students.filter((item) => item.id !== studentId);
             return this.students;
         } catch (error) {
+            console.log("error");
             next(error);
         }
     }

@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css" />
 </head>
 <body>
     <% if (message) { %>
@@ -12,14 +13,14 @@
     <% } %>
 
     <h1>Student List</h1>
-    <form method="get">
+    <form method="get"> <!-- Search -->
         <label for="name">Search by Name:</label>
         <input type="text" id="name" name="name">
         <br>
         <label for="group">Search by Group:</label>
 
         <br>
-        <input type="submit" value="Search">
+        <input class="submit-button" type="submit" value="Search">
     </form>
     <table>
         <tr>
@@ -31,17 +32,35 @@
         <% students?.forEach(function(student) { %>
             <tr>
                 <td><%= student.name %></td>
-                <td><%= student.group.name %></td>
-                <td>Edit</td>
-                <td>
+                <td><%= student.name %></td>
+                <td><!-- Edit -->
+                    <form method="post" action="/students/< %= student.id %>?_method=PUT">
+                        <label for="id">Student Id:</label>
+                        <input type="text" id="id" name="id" value="<%= student.id %>" required>
+                        <label for="name">Student Name:</label>
+                        <input type="text" id="name" name="name" value="<%= student.name %>" required>
+                        <label for="surname">Student Surname:</label>
+                        <input type="text" id="surname" name="surname" value="<%= student.surname %>" required>
+                        <label for="email">Student Email:</label>
+                        <input type="email" id="email" name="email" value="<%= student.email %>" required>
+                        <label for="phone">Student Phone:</label>
+                        <input type="text" id="phone" name="phone" value="<%= student.phone %>" required>
+                        <label for="age">Student Age:</label>
+                        <input type="number" id="age" name="age" value="<%= student.age %>" required>
+                        <br>
+                        <label for="group">Group:</label>
+                        <br>
+                        <input type="submit" value="Update Student">
+                    </form>
+                </td>
+                <td><!-- Delete -->
                     <form method="post" action="/students/<%= student.id %>?_method=DELETE">
-                        <input type="submit" value="Delete Student">
+                        <input class="submit-button" type="submit" value="Delete Student">
                     </form>
                 </td>
             </tr>
         <% }) %>
     </table>
-
     <h1>Create New Student</h1>
     <form method="post" action="/students">
         <label for="id">Student Id:</label>
@@ -59,9 +78,8 @@
         <br>
         <label for="group">Group:</label>
         <br>
-        <input type="submit" value="Create Student">
+        <input class="submit-button" type="submit" value="Create Student">
     </form>
-
     <!-- <h1>Edit Student</h1>
     <form method="post" action="/students/< %= student.id %>?_method=PUT">
         <label for="name">Student Name:</label>
