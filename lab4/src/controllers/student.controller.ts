@@ -21,10 +21,10 @@ class StudentController {
         const page = parseInt(req.query.page as string, 10) || 1;
         const itemsPerPage = parseInt(req.query.itemsPerPage as string, 10) || this.students.length;
 
-        const skip = (page - 1) * itemsPerPage;
-        const take = itemsPerPage;
+        const startIndex = (page - 1) * itemsPerPage;
+        const endIndex = itemsPerPage;
 
-        const students = this.students.slice(skip, skip + take);
+        const students = this.students.slice(startIndex, startIndex + endIndex);
         res.status(HttpCodes.OK).json({ students });
     };
 
@@ -40,7 +40,10 @@ class StudentController {
     };
 
     public getStudentsFiltered = (req: Request, res: Response): void => {
-        const { name, surname, email, phone, age } = req.query;
+        const { name, surname, email, phone, age, groupId } = req.query;
+        const page = parseInt(req.query.page as string, 10) || 1;
+        const itemsPerPage = parseInt(req.query.itemsPerPage as string, 10) || this.students.length;
+
         let filteredStudents = this.students;
 
         if (name) {
@@ -65,18 +68,26 @@ class StudentController {
             );
         }
 
-        res.status(HttpCodes.OK).json({ students: filteredStudents });
+        if (groupId) {
+            filteredStudents = filteredStudents.filter((s) => s.groupId === groupId);
+        }
+
+        const startIndex = (page - 1) * itemsPerPage;
+        const endIndex = page * itemsPerPage;
+
+        const students = filteredStudents.slice(startIndex, startIndex + endIndex);
+
+        res.status(HttpCodes.OK).json({ students });
     };
 
     public createStudent = (req: Request, res: Response): void => {
-        const { name, surname, email, phone, age } = req.body;
+        const { name, surname, email, phone, age, groupId } = req.body;
 
-        // Validation
-        if (!name || !surname || !email || !phone || !age) {
+        if (!name || !surname || !email || !phone || !age || !groupId) {
             throw new BadRequestError('All fields are required');
         }
 
-        const newStudent = new Student(name, surname, email, phone, age);
+        const newStudent = new Student(name, surname, email, phone, age, groupId);
         this.students.push(newStudent);
 
         res.status(HttpCodes.CREATED).json({ student: newStudent });
@@ -96,7 +107,7 @@ class StudentController {
 
     public updateStudent = (req: Request, res: Response): void => {
         const studentId = req.params.id;
-        const { name, surname, email, phone, age } = req.body;
+        const { name, surname, email, phone, age, groupId } = req.body;
 
         const student = this.students.find((s) => s.id === studentId);
 
@@ -108,6 +119,7 @@ class StudentController {
             student.email = email || student.email;
             student.phone = phone || student.phone;
             student.age = age || student.age;
+            student.groupId = groupId || student.groupId;
 
             res.status(HttpCodes.OK).json({ student });
         }

@@ -10,10 +10,12 @@ function errorMiddleware(
     const status = error.status || 500;
     const message = error.message || 'Something went wrong';
 
-    response.status(status).send({
+    response.status(status).json({
         status,
         message,
     });
+
+    next();
 }
 
 export default errorMiddleware;

@@ -21,10 +21,10 @@ class GroupController {
         const page = parseInt(req.query.page as string, 10) || 1;
         const itemsPerPage = parseInt(req.query.itemsPerPage as string, 10) || this.groups.length;
 
-        const skip = (page - 1) * itemsPerPage;
-        const take = itemsPerPage;
+        const startIndex = (page - 1) * itemsPerPage;
+        const endIndex = itemsPerPage;
 
-        const groups = this.groups.slice(skip, skip + take);
+        const groups = this.groups.slice(startIndex, startIndex + endIndex);
         res.status(HttpCodes.OK).json({ groups });
     };
 
@@ -41,6 +41,9 @@ class GroupController {
 
     public getGroupsFiltered = (req: Request, res: Response): void => {
         const { name, faculty } = req.query;
+        const page = parseInt(req.query.page as string, 10) || 1;
+        const itemsPerPage = parseInt(req.query.itemsPerPage as string, 10) || this.groups.length;
+
         let filteredGroups = this.groups;
 
         if (name) {
@@ -51,13 +54,17 @@ class GroupController {
             filteredGroups = filteredGroups.filter((g) => g.faculty === faculty);
         }
 
+        const startIndex = (page - 1) * itemsPerPage;
+        const endIndex = itemsPerPage;
+
+        filteredGroups = filteredGroups.slice(startIndex, startIndex + endIndex);
+
         res.status(HttpCodes.OK).json({ groups: filteredGroups });
     };
 
     public createGroup = (req: Request, res: Response): void => {
         const { name, faculty } = req.body;
 
-        // Validation
         if (!name || !faculty) {
             throw new BadRequestError('Name and faculty are required');
         }
