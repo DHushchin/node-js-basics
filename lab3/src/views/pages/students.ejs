@@ -34,7 +34,7 @@
                 <td><%= student.name %></td>
                 <td><%= student.name %></td>
                 <td><!-- Edit -->
-                    <form method="post" action="/students/< %= student.id %>?_method=PUT">
+                    <form method="post" action="/students/put/<%= student.id %>">
                         <label for="id">Student Id:</label>
                         <input type="text" id="id" name="id" value="<%= student.id %>" required>
                         <label for="name">Student Name:</label>
@@ -54,7 +54,7 @@
                     </form>
                 </td>
                 <td><!-- Delete -->
-                    <form method="post" action="/students/<%= student.id %>?_method=DELETE">
+                    <form method="post" action="/students/delete/<%= student.id %>">
                         <input class="submit-button" type="submit" value="Delete Student">
                     </form>
                 </td>

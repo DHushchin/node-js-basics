@@ -22,14 +22,14 @@
             <tr>
                 <td><%= group.name %></td>
                 <td>
-                    <form method="post" action="/groups/<% group._id %>?_method=PUT">
+                    <form method="post" action="/groups/put/<% group.id %>">
                         <input type="text" id="name" name="name" value="<%= group.name %>" required>
                         <br>
                         <input class="submit-button" type="submit" value="Update Group Name">
                     </form>
                 </td>
                 <td>
-                    <form method="post" action="/groups/<%= group.id %>?_method=DELETE">
+                    <form method="post" action="/groups/delete/<%= group.id %>">
                         <input lass="submit-button"  type="submit" value="Delete Group">
                     </form>
                 </td>

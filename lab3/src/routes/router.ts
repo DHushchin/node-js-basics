@@ -30,14 +30,14 @@ class RouteCreator {
             });
         });
 
-        this.router.delete('/students/:id',async function(req: Request, res: Response, next: NextFunction) {
+        this.router.post('/students/delete/:id',async function(req: Request, res: Response, next: NextFunction) {
             res.status(HttpCodes.OK).render('../src/views/pages/students', {
                 message: "",
                 students: await studentController.deleteStudent(req, res, next)
             });
         });
 
-        this.router.put('/students/:id', async function(req: Request, res: Response, next: NextFunction) {
+        this.router.put('/students/put/:id', async function(req: Request, res: Response, next: NextFunction) {
             res.status(HttpCodes.OK).render('../src/views/pages/students', {
                 message: "",
                 students: await studentController.changeStudent(req, res, next)
@@ -61,7 +61,7 @@ class RouteCreator {
             });
         });
 
-        this.router.delete('/groups/:id', async function(req: Request, res: Response, next: NextFunction) {
+        this.router.post('/groups/delete/:id', async function(req: Request, res: Response, next: NextFunction) {
             console.log("delete func")
             res.status(HttpCodes.OK).render('../src/views/pages/groups', {
                 message: "",
@@ -69,7 +69,7 @@ class RouteCreator {
             });
         });
 
-        this.router.put('/groups/:id', async function(req: Request, res: Response, next: NextFunction) {
+        this.router.post('/groups/put/:id', async function(req: Request, res: Response, next: NextFunction) {
             res.status(HttpCodes.OK).render('../src/views/pages/groups', {
                 message: "",
                 groups: await groupController.changeGroup(req, res, next)

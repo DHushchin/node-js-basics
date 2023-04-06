@@ -82,7 +82,7 @@ async function getStyles(req, res) {
     await res.end();
 }
 
-setInterval(main, 5 * 1000);
+setInterval(main, 60 * 1000);
 
 const server = http.createServer(async (req, res) => {
     await getStyles(req, res);

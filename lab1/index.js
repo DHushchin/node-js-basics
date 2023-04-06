@@ -83,7 +83,7 @@ function longestPalindrome(s) {
   
 function getStr(left, right, str) {
     let curr = '';
-  
+
     while (left >= 0 && right < str.length && str[left] === str[right]) {
       curr = str.substring(left, right + 1);
       left -= 1;
