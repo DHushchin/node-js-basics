@@ -1,0 +1,181 @@
+swagger: "2.0"
+info:
+  title: University API
+  version: "1.0.0"
+  description: RESTful API for managing groups
+host: localhost:3000
+schemes:
+  - http
+basePath: /api
+paths:
+  /students:
+    get:
+      summary: Get all students
+      description: Returns a list of all students
+      parameters:
+        - name: name
+          in: query
+          description: Filter by student name
+          type: string
+        - name: surname
+          in: query
+          description: Filter by student surname
+          type: string
+        - name: email
+          in: query
+          description: Filter by student email
+          type: string
+        - name: phone
+          in: query
+          description: Filter by student phone number
+          type: string
+        - name: age
+          in: query
+          description: Filter by student age
+          type: integer
+        - name: groupId
+          in: query
+          description: Filter by group ID
+          type: integer
+        - name: page
+          in: query
+          description: Page number
+          type: integer
+        - name: itemsPerPage
+          in: query
+          description: Number of items per page
+          type: integer
+      responses:
+        200:
+          description: A list of students
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Student'
+    post:
+      summary: Create a new student
+      description: Creates a new student record
+      parameters:
+        - name: student
+          in: body
+          description: The student to create
+          schema:
+            $ref: '#/definitions/Student'
+      responses:
+        201:
+          description: The newly created student
+          schema:
+            $ref: '#/definitions/Student'
+  /students/{id}:
+    get:
+      summary: Get a student by ID
+      description: Returns a student with the specified ID
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the student to retrieve
+          type: integer
+      responses:
+        200:
+          description: The requested student
+          schema:
+            $ref: '#/definitions/Student'
+        404:
+          description: Student not found
+    put:
+      summary: Update a student
+      description: Updates an existing student record
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the student to update
+          type: integer
+        - name: student
+          in: body
+          description: The updated student data
+          schema:
+            $ref: '#/definitions/'
+
+  /groups:
+    get:
+      summary: Get all groups
+      responses:
+        200:
+          description: List of all groups
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Group'
+    post:
+      summary: Create a new group
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupInput'
+      responses:
+        201:
+          description: Created group object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+  /groups/{id}:
+    parameters:
+      - name: id
+        in: path
+        description: ID of the group to retrieve or delete
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Get a group by ID
+      responses:
+        200:
+          description: Group object with the specified ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+        404:
+          description: Group with the specified ID not found
+    delete:
+      summary: Delete a group by ID
+      responses:
+        204:
+          description: Group with the specified ID deleted successfully
+        404:
+          description: Group with the specified ID not found
+components:
+  schemas:
+    Group:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the group
+        name:
+          type: string
+          description: Name of the group
+        faculty:
+          type: string
+          description: Faculty of the group
+      required:
+        - id
+        - name
+        - faculty
+    GroupInput:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the group
+        faculty:
+          type: string
+          description: Faculty of the group
+      required:
+        - name
+        - faculty
