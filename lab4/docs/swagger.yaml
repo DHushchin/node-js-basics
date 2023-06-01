@@ -6,9 +6,8 @@ info:
 host: localhost:3000
 schemes:
   - http
-basePath: /api
 paths:
-  /students:
+  /api/students:
     get:
       summary: Get all students
       description: Returns a list of all students
@@ -66,7 +65,7 @@ paths:
           description: The newly created student
           schema:
             $ref: '#/definitions/Student'
-  /students/{id}:
+  /api/students/{id}:
     get:
       summary: Get a student by ID
       description: Returns a student with the specified ID
@@ -75,6 +74,7 @@ paths:
           in: path
           description: The ID of the student to retrieve
           type: integer
+          format: int64
       responses:
         200:
           description: The requested student
@@ -90,56 +90,59 @@ paths:
           in: path
           description: The ID of the student to update
           type: integer
+          format: int64
         - name: student
           in: body
           description: The updated student data
           schema:
-            $ref: '#/definitions/'
-
-  /groups:
+            $ref: '#/definitions/Student'
+  /api/groups:
     get:
       summary: Get all groups
+      description: Returns a list of all groups
+      parameters:
+        - name: name
+          in: query
+          description: Filter by group name
+          type: string
+        - name: faculty
+          in: query
+          description: Filter by group faculty
+          type: string
       responses:
         200:
           description: List of all groups
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Group'
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Group'
     post:
       summary: Create a new group
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/GroupInput'
+      parameters:
+        - name: group
+          in: body
+          description: The group to create
+          schema:
+            $ref: '#/definitions/GroupInput'
       responses:
         201:
           description: Created group object
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Group'
-  /groups/{id}:
+          schema:
+            $ref: '#/definitions/Group'
+  /api/groups/{id}:
     parameters:
       - name: id
         in: path
         description: ID of the group to retrieve or delete
         required: true
-        schema:
-          type: string
+        type: string
     get:
       summary: Get a group by ID
       responses:
         200:
           description: Group object with the specified ID
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Group'
+          schema:
+            $ref: '#/definitions/Group'
         404:
           description: Group with the specified ID not found
     delete:
@@ -149,33 +152,57 @@ paths:
           description: Group with the specified ID deleted successfully
         404:
           description: Group with the specified ID not found
-components:
-  schemas:
-    Group:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the group
-        name:
-          type: string
-          description: Name of the group
-        faculty:
-          type: string
-          description: Faculty of the group
-      required:
-        - id
-        - name
-        - faculty
-    GroupInput:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the group
-        faculty:
-          type: string
-          description: Faculty of the group
-      required:
-        - name
-        - faculty
+definitions:
+  Student:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+        description: Unique identifier for the student
+      name:
+        type: string
+        description: Name of the student
+      surname:
+        type: string
+        description: Surname of the student
+      email:
+        type: string
+        description: Email of the student
+      phone:
+        type: string
+        description: Phone number of the student
+      age:
+        type: integer
+        description: Age of the student
+      groupId:
+        type: integer
+        description: ID of the group the student belongs to
+  Group:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Unique identifier for the group
+      name:
+        type: string
+        description: Name of the group
+      faculty:
+        type: string
+        description: Faculty of the group
+    required:
+      - id
+      - name
+      - faculty
+  GroupInput:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Name of the group
+      faculty:
+        type: string
+        description: Faculty of the group
+    required:
+      - name
+      - faculty

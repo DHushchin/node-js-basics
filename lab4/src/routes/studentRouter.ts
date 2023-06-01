@@ -28,7 +28,6 @@ class StudentRouter {
             }
         });
         this.router.get('/students/:id', studentController.getStudentById);
-        this.router.get('/students', studentController.getStudentsFiltered);
         this.router.post('/students', validateStudent, studentController.createStudent);
         this.router.delete('/students/:id', studentController.deleteStudent);
         this.router.put('/students/:id', validateStudent, studentController.updateStudent);

@@ -24,7 +24,6 @@ class GroupRouter {
             }
         });
         this.router.get('/groups/:id', groupController.getGroupById);
-        this.router.get('/groups', groupController.getGroupsFiltered);
         this.router.post('/groups', validateGroup, groupController.createGroup);
         this.router.delete('/groups/:id', groupController.deleteGroup);
         this.router.put('/groups/:id', validateGroup, groupController.updateGroup);

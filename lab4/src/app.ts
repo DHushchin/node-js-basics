@@ -5,6 +5,8 @@ import config from './config';
 import groupRouter from './routes/groupRouter';
 import studentRouter from './routes/studentRouter';
 import errorMiddleware from './middlewares/error.middleware';
+import swaggerUi from 'swagger-ui-express';
+import swaggerJsDoc from 'swagger-jsdoc';
 
 class App {
     private app: express.Application;
@@ -19,6 +21,20 @@ class App {
     private initializeMiddlewares() {
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: true }));
+
+        const swaggerOptions = {
+            swaggerDefinition: {
+              info: {
+                title: 'Students API',
+                version: '1.0.0',
+              },
+            },
+            apis: ['docs/swagger.yaml'],
+          };
+      
+          const swaggerSpec = swaggerJsDoc(swaggerOptions);
+          this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+          
     }
 
     private initializeErrorHandling() {
